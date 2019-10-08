@@ -1,0 +1,19 @@
+# Exclude articles
+/*
+
+# Include the actual cms
+!/.gitignore
+!/cms
+!/cms-template
+!/error.php
+!/index.php
+
+# Exclude login data
+/cms/login/*/*
+
+# Exclude config files
+/cms/config/*
+
+# Exclude non-default images
+/cms/img/*
+!/cms/img/default
