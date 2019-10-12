@@ -28,12 +28,36 @@ $date = mb_convert_encoding(file_get_contents("date"), 'HTML-ENTITIES', "UTF-8")
     if (!empty($date)){
         $date = "<br>(Published: " . $date . ")";
     }
+
+$ogDescription = preg_replace('/<[^>]*>/i','', preg_replace('/<[a][^[<]*<\/[a][ ]*>/i','',$html1));
+$ogUrl = 'https://'.$_SERVER['HTTP_HOST'].preg_replace('/\/[^\/]*$/i','',$_SERVER['PHP_SELF']);
+$ogImage = $ogUrl."/".preg_replace('/&quot;/i','',preg_replace('/^[^\/]*\/[^\/]*\//i','',$backgroundImg));
 ?>
 
 <html class="no-js" lang="en">
-    <head>      
-      <title><?php echo("$PAGETITLE - $title"); ?></title>
-      <link rel="shortcut icon" href="<?php echo($ICONFILE); ?>">
+    <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">      
+        <title><?php echo("$PAGETITLE - $title"); ?></title>
+        <link rel="shortcut icon" href="<?php echo($ICONFILE); ?>">
+
+        <!-- open graph tags -->
+        <meta property="og:title" content="<?php echo($title); ?>" />
+        <meta property="og:site_name" content="<?php echo($PAGETITLE); ?>">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="article">
+        <meta property="article:tag" content="<?php echo($title); ?>">
+        <meta property="og:description" content="<?php echo($ogDescription); ?>" />
+        <meta property="og:url" content="<?php echo $ogUrl ?>" />
+        <meta property="og:image" content="<?php echo $ogImage; ?>" />
+        <!--
+		    <meta property="og:image:width" content="3200">
+		    <meta property="og:image:height" content="2400">
+            <meta property="og:image:secure_url" content="<?php echo $ogImage; ?>">
+            <meta property="og:image:type" content="image/png">
+            <meta property="article:published_time" content="1972-06-18">
+            <meta property="article:author" content="http://examples.opengraphprotocol.us/profile.html">
+            <meta property="article:section" content="Front page">
+        -->
+
       <!--[if !IE]><!-->
         <link rel="stylesheet" href="../cms-template/base.css">
         <link rel="stylesheet" href="../cms-template/style.css">
