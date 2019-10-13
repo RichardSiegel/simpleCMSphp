@@ -37,9 +37,11 @@
                 // TODO check if dirName trys to wirte existing dir or contains '/'
 
                 // Setup subdirs
-                $dirDocs = $dirName . "/doc";
                 $dirEN = $dirName . "/en";
+                $dirDocs = $dirName . "/doc";
                 $dirImg = $dirName . "/img";
+                mkdir($dirDocs, 0755, true);
+                mkdir($dirImg, 0755, true);
 
                 // save Author
                 mkfile($dirName,"author",$user);

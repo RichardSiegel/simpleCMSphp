@@ -28,7 +28,6 @@ setupvars($includesPath);
 
         $cnt = 0;
         $itemCntCol = intdiv(sizeof($dirs)-6,3);
-        echo "<script>console.log('$itemCntCol');</script>";
         foreach ($dirs as $page)
             if (isCMSpage($page)){
                 if ($cnt == 0) print("<div class='col-sm-4'>"); 
