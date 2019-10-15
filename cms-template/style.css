@@ -60,10 +60,14 @@ body {
     background-image: linear-gradient(rgba(20,20,100,0.6), rgba(40, 50, 50, 1));
     margin-bottom: 0px;
 }
+
 #footter{
     background: rgba(40, 50, 50, 1);
+}
+
+fotter{
     text-align: center;
-    color: gray;
+    color: #a5a5a5;
     height: 50px;
     padding:8px;
 }

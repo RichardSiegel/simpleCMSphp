@@ -134,7 +134,54 @@ $ogImage = $ogUrl."/".preg_replace('/&quot;/i','',preg_replace('/^[^\/]*\/[^\/]*
             </section>
         </main>
         <div id="footter" style="padding: 20px;">
-            <?php echo($FOOTERTEXT); ?>
+            <div class="container" style="max-width: 2000px;">
+                <div class='row'>
+                <?php
+                    function isCMSpage($dir,$excludeDir){
+                        $page = preg_replace('/[.]*\.\//','',$dir);
+                        return (((is_dir("../$page") && preg_replace('/\.*/','',$page)!="") && ($page!="cms-template") && ($page!="cms")) && ($page!=$excludeDir));
+                    }
+                    
+                    $dirs = scandir("../");
+
+                    $cnt = 0;
+                    $itemCntCol = intdiv(sizeof($dirs)-6-1,3);
+                    $currPageDir = preg_replace('/\/.*\//i','',preg_replace('/\/[^\/]*$/i','',$_SERVER['PHP_SELF']));
+                    foreach ($dirs as $page)
+                        if (isCMSpage("../$page",$currPageDir)){
+                            if ($cnt == 0) print("<div class='col-sm-4'>"); 
+             
+                            $bannerFileName = mb_convert_encoding(file_get_contents("../$page/bannerFileName"), 'HTML-ENTITIES', "UTF-8");
+                            if (strlen($bannerFileName) < 3){
+                                $backgroundImg = $DEFAULTBANNER;
+                            } else {
+                                $backgroundImg = "../$page/$bannerFileName";
+                            }
+
+                            print("<div class='thumbnail'><a style='text-decoration:none;' href='../$page'>");
+                            print('<img src="'.$backgroundImg.'" alt="thumbnail" style="width:100%;">');
+                            print("<div class='caption'>");
+                            print("<h2><b>".file_get_contents("../$page/en/title",false)."</b></h2>");
+                            $txt = file_get_contents("../$page/en/html1",false);
+                            $txt = preg_replace('/<[h][1-5][^>]*>/i','<h4>',$txt);
+                            $txt = preg_replace('/<\/[h][1-5]>/i','</h4>',$txt);
+                            $txt = preg_replace('/<[a][^[<]*<\/[a][ ]*>/i','',$txt);
+                            print("<p>".$txt."</p>");
+                            print("</div>");
+                            print("</a></div>");
+
+                            $cnt = $cnt + 1;
+                            if ($cnt == $itemCntCol) {
+                                print("</div>"); 
+                                $cnt = 0;
+                            }
+                        }
+                ?>
+                </div>
+            </div>
+            <fotter style="padding-top: 20px;">
+                <?php echo($FOOTERTEXT); ?>
+            </fotter>
         </div>
         <!-- TODO ADD js -->
         <!--[if !IE]><!-->
