@@ -1,4 +1,6 @@
 # simpleCMSphp
 This is a basic Content Management System for linux servers written in PHP and JavaScript.
 
-Setup Wizard is coming soon.
+I use a modified version of this on my page: www.siegel.work
+
+Setup Wizard is coming.
